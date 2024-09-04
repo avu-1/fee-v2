@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Car Gallery</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightgrey;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2f042e;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+.nav__logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.nav__logo img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.nav__links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__links li {
+    margin: 0;
+}
+
+.nav__links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav__links a:hover {
+    background-color: #BC9F8B;
+}
+
+.btn {
+    background-color: #BC9F8B;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #A37F6C;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #2f042e;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #C4A484;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #C4A484;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+    color: #BC9F8B;
+}
+
+.main-content {
+    width: 80%;
+}
+
+.section__header {
+    font-size: 28px;
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+.car {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    overflow: hidden;
+    width: 100%;
+    color: #2f042e;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.car:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.car img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.car-details {
+    padding: 15px;
+}
+
+.car-details h2 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: purple;
+}
+
+.car-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.car-details .price {
+    color: purple;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #2f042e;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer h4 {
+    margin: 10px 0;
+    color: #BC9F8B;
+}
+
+footer .footer__links {
+    list-style: none;
+    padding: 0;
+    color: aquamarine;
+}
+
+footer .footer__links li {
+    margin: 5px 0;
+}
+
+footer .footer__links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer .footer__links a:hover {
+    color: #ff5a5f;
+}
+
+footer .footer__bar {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+footer .footer__socials {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer .footer__socials a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+footer .footer__socials a:hover {
+    color: #ff5a5f;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: whitesmoke;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup h2 {
+    color: #2f042e;
+    margin-bottom: 15px;
+}
+
+.popup p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.popup .price {
+    color: #2f042e;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.popup .btn {
+    background-color: #2f042e;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.popup .btn:hover {
+    background-color: #2f042e;
+}
+
+.popup .close {
+    display: none;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .nav__links {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav__logo {
+        font-size: 20px;
+    }
+
+    .nav__logo img {
+        height: 40px;
+        width: 40px;
+    }
+
+    .nav__links a {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .section__header {
+        font-size: 24px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .car img {
+        height: 150px;
+    }
+
+    .car-details h2 {
+        font-size: 20px;
+    }
+
+    .car-details p {
+        font-size: 14px;
+    }
+
+    .car-details .price {
+        font-size: 18px;
+    }
+}
+
+
+        footer {
+            background-color: #2f042e;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer h4 {
+            margin: 10px 0;
+            color: #BC9F8B;
+        }
+
+        footer .footer__links {
+            list-style: none;
+            padding: 0;
+            color: aquamarine;
+        }
+
+        footer .footer__links li {
+            margin: 5px 0;
+        }
+
+        footer .footer__links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer .footer__links a:hover {
+            color: #ff5a5f;
+        }
+
+        footer .footer__bar {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        footer .footer__socials {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        footer .footer__socials a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        footer .footer__socials a:hover {
+            color: #ff5a5f;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: whitesmoke;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup h2 {
+            color: #2f042e;
+            margin-bottom: 15px;
+        }
+
+        .popup p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .popup .price {
+            color: #2f042e;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .popup .btn {
+            background-color: #2f042e;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .popup .btn:hover {
+            background-color: #2f042e;
+        }
+
+        .popup .close {
+            display: none;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav__logo">
+                <a href="index.html">
+                    <img src="Untitled-removebg-preview.png" alt="Elegant Classics Logo"> Elegant Classics
+                </a>
+            </div>
+            <ul class="nav__links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Rent</a></li>
+                
+                
+                <li><a href="contactus.html">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Popular Searches</h2>
+            <ul>
+                <li><a href="#">Vintage Luxury</a></li>
+                <li><a href="#">Vintage SUV</a></li>
+                <li><a href="#">Vintage Sedan</a></li>
+                <li><a href="#">Vintage Ford</a></li>
+                <li><a href="#">Vintage Mustang</a></li>
+            
+                <h2>Best Seller</h2>
+                <ul>
+                    <li><a href="#">Ford Mustang</a></li>
+                    <li><a href="#">Ford Thunderbird</a></li>
+                    <li><a href="#">Shelby Cobra</a></li>
+                    <li><a href="#">Chevrolet Malibu</a></li>
+                </ul>
+            </aside>
+        <main class="main-content">
+            <section class="section">
+                <h1 class="section__header" style="color: #2f042e;">Classic Car Gallery</h1>
+                <div class="gallery">
+                    <div class="car" onclick="showPopup('1967 Ford Mustang', 'A classic muscle car with powerful performance and iconic design.', '9500/Day')">
+                        <img src="mustang.jpg" alt="1967 Ford Mustang">
+                        <div class="car-details">
+                            <h2>1967 Ford Mustang</h2>
+                            <p>A classic muscle car with powerful performance and iconic design.</p>
+                            <p class="price">9500/Day</p>
+                        </div>
+                    </div>
+                    <div class="car" onclick="showPopup('1962 Ford Thunderbird', 'A symbol of elegance and luxury with a smooth ride and advanced features.', '8000/Day')">
+                        <img src="thunderbird.jpeg" alt="1962 Ford Thunderbird">
+                        <div class="car-details">
+                            <h2>1962 Ford Thunderbird</h2>
+                            <p>A symbol of elegance and luxury with a smooth ride and advanced features.</p>
+                            <p class="price">8000/Day</p>
+                        </div>
+                    </div>
+                    <div class="car" onclick="showPopup('1965 Shelby Cobra', 'A legendary sports car with a lightweight body and high-performance engine.', '6000/Day')">
+                        <img src="shelby.jpg" alt="1965 Shelby Cobra">
+                        <div class="car-details">
+                            <h2>1965 Shelby Cobra</h2>
+                            <p>A legendary sports car with a lightweight body and high-performance engine.</p>
+                            <p class="price">6000/Day</p>
+                        </div>
+                    </div>
+                    <div class="car" onclick="showPopup('1957 Ford Thunderbird', 'A classic American car known for its style, power, and comfort.', '7500/Day')">
+                        <img src="thunderbird.jpeg" alt="1957 Ford Thunderbird">
+                        <div class="car-details">
+                            <h2>1957 Ford Thunderbird</h2>
+                            <p>A classic American car known for its style, power, and comfort.</p>
+                            <p class="price">7500/Day</p>
+                        </div>
+                    </div>
+                    <div class="car" onclick="showPopup('1977 Ford F-150 Ranger 4WD', 'A rugged truck with off-road capabilities and a durable build.', '5000/Day')">
+                        <img src="rabnger.jpg" alt="1977 Ford F-150 Ranger 4WD">
+                        <div class="car-details">
+                            <h2>1977 Ford F-150 Ranger 4WD</h2>
+                            <p>A rugged truck with off-road capabilities and a durable build.</p>
+                            <p class="price">5000/Day</p>
+                        </div>
+                    </div>
+                    <div class="car" onclick="showPopup('Mercedes-Benz 280SL', 'A luxury convertible with a smooth ride and elegant design.', '11000/Day')">
+                        <img src="mer.jpeg" alt="Mercedes-Benz 280SL">
+                        <div class="car-details">
+                            <h2>Mercedes-Benz 280SL</h2>
+                            <p>A luxury convertible with a smooth ride and elegant design.</p>
+                            <p class="price">11000/Day</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="popup-overlay" class="popup-overlay"></div>
+    <div id="popup" class="popup">
+        <h2 id="popup-title">Car Title</h2>
+        <p id="popup-description">Car description goes here.</p>
+        <p id="popup-price" class="price">Price goes here.</p>
+        <a href="rent-details.html" class="btn">Book</a>
+    </div>
+
+    <footer>
+        <h4>Elegant Classics</h4>
+        <ul class="footer__links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="footer__bar">
+            <ul class="footer__socials">
+                <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                <li><a href="#"><i class="ri-twitter-line"></i></a></li>
+                <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+            </ul>
+        </div>
+        <p>&copy; 2023 Elegant Classics. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPopup(title, description, price) {
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-description').innerText = description;
+            document.getElementById('popup-price').innerText = price;
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
